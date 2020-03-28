@@ -352,13 +352,16 @@ int main(int argc, char **argv)
     if (res == SCRIPT_BINARY) {
     	obj = JS_ReadObject(ctx, (uint8_t*)bootstrap_src, bootstrap_size, JS_READ_OBJ_BYTECODE);
         if (JS_IsException(obj)) {
+            status = 1;
             js_std_dump_error(ctx);
         } else {
 	        val = JS_EvalFunction(ctx, obj);
-	        if (JS_IsException(val))
+	        if (JS_IsException(val)) {
+	            status = 1;
 	            js_std_dump_error(ctx);
-	        else
+	        } else {
 		        JS_FreeValue(ctx, val);
+	        }
         }
     } else {
 	    bootstrap_src = realloc(bootstrap_src, bootstrap_size + 1);
