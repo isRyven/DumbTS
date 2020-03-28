@@ -141,7 +141,7 @@ var jsSystem;
 var tsObject = {
 	set sys (item) {
 		if (!jsSystem)
-			jsSystem = getHostApi(commonScope.__ts);
+			jsSystem = getHostApi(tsObject);
 	},
 	get sys() {
 		return jsSystem;
