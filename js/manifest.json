@@ -1,0 +1,6 @@
+{
+	"version": "0.1.0",
+	"name": "dumbts",
+	"description": "a lightweight standalone typescript compiler",
+	"bootstrap": "bootstrap.js"
+}

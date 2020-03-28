@@ -1,0 +1,49 @@
+# DumbJS CI
+# Builds DumbJS
+# Runs test262
+
+trigger:
+- master
+
+jobs:
+
+- job: build_linux
+  
+  timeoutInMinutes: 5
+
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - script: |
+      mkdir build && cd build
+      cmake .. -DCMAKE_BUILD_TYPE=Release -DEXAMPLES=ON
+      make
+    displayName: 'Linux Build'
+
+  - script: |
+      cd build
+      git clone https://github.com/isRyven/dumbjs-test262 tests
+      examples/djs tests/test-harness.js
+    displayName: 'Linux Test'
+
+- job: build_windows
+
+  timeoutInMinutes: 5
+
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  - script: |
+      mkdir build
+      cd build
+      cmake .. -DCMAKE_BUILD_TYPE=Release -DEXAMPLES=ON
+      cmake --build . --config Release
+    displayName: 'Windows Build'
+
+  - script: |
+      cd build
+      git clone https://github.com/isRyven/dumbjs-test262 tests
+      examples\Release\djs.exe tests\test-harness.js
+    displayName: 'Windows Test'
