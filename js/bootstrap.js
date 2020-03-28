@@ -190,6 +190,10 @@ var rootModule = new Module(__filename, {
 });
 
 var getHostApi = rootModule.require("./hostapi.js");
+if (typeof Map === "undefined") {
+	globalThis.Map = rootModule.require("./mapshim.js");
+}
+
 // run tsc! (runs in global scope, since it was compiled this way)
 rootModule.require("./tsc.js");
 /* HELPERS */
