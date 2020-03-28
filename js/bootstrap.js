@@ -6,7 +6,7 @@ var console = {
 
 function __eval(source, env) {
 	if (typeof source === "string") {
-		__eval_strict(source, env);
+		__eval_module(source, env);
 	} else {
 		__eval_bytecode(source, env);
 	}
